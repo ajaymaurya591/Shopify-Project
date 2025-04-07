@@ -1,0 +1,225 @@
+<style>
+  #img_vid_section .container{
+    max-width: 1320px;
+    margin: 0 auto;
+}
+
+#img_vid_section img ,video{
+    max-width: 100%;
+    max-height: max-content;
+    border-radius: 20px;
+}
+#img_vid_section .row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+#img_vid_section .cont1-list {
+    width: 100%;
+    padding-left: 36px;
+}
+
+#img_vid_section .cont1-list ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+#img_vid_section .cont1-list li {
+    flex: 1 1 50%; 
+    padding: 10px;
+    box-sizing: border-box;
+    list-style: disc;
+  
+    color: #000000;
+    font-size: 18px;
+    margin: 0;
+   
+    text-align: left;
+}
+
+#img_vid_section .col-6{
+    background-color: rgba(0, 0, 0, 0);
+    flex-direction: row;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px 20px;
+}
+
+#img_vid_section #content1 h1{
+    line-height: 39px;
+    color: #000000;
+    font-size: 33px;
+    margin: 0;
+    margin-bottom: 10px;
+    text-align: left;
+ 
+}
+
+#img_vid_section #content1 p {
+    line-height: 22px;
+    color: #000000;
+    font-size: 18px;
+    margin: 0;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+#img_vid_section #content2 h1{
+    line-height: 39px;
+    color: #000000;
+    font-size: 30px;
+    margin: 0;
+    margin-bottom: 10px;
+    text-align: left;
+ 
+}
+
+#img_vid_section #content2 p {
+    line-height: 27px;
+    color: #000000;
+    font-size: 20px;
+    margin: 0;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+#img_vid_section #content2 button {
+    padding: 13px;
+    padding-left: 28px;
+    padding-right: 28px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 13px;
+    border: 0.5px solid #000;
+    background-color: #fff ;
+}
+
+@media (max-width:576px){
+   #img_vid_section .row{
+        flex-direction: column;
+    }
+   #img_vid_section .col-6 {
+        width: 90%;
+   
+    }
+    #img_vid_section .cont1-list {
+        width: 96%;
+        padding-left: 24px;
+    }
+}
+</style>
+
+
+{% schema %}
+  {
+    "name": "Arrae Image&Video Section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id":"image",
+        "label": "Upload Image"
+      },
+      {
+        "type": "text",
+        "id": "first_heading",
+        "label": "First Heading",
+        "default":"Where Science Meets Chic: Supplements That Work"
+      },
+      {
+        "type": "text",
+        "id": "first_desc",
+        "label": "First Description",
+        "default":"At Arrae, we redefine what it means to feel good. Our supplements target everyday problems such as bloating, constipation, heartburn, etc. so you can feel confident and live your best life."
+      },
+         {
+        "type": "text",
+        "id": "second_heading",
+        "label": "Second Heading",
+        "default":"We Made Arrae Because YOU Deserve Better"
+      },
+       {
+        "type": "text",
+        "id": "second_desc",
+        "label": "Second Description",
+        "default":"Siff and Nish, our founders, were tired of everyday problems such as bloating, heartburn, anxiety, etc. But most supplements and products did not work.<br>So they made their own. Say yes to supplements that don’t just look good on your shelf, but actually work wonders inside your body."
+      },
+        {
+        "type": "text",
+        "id": "btn_text",
+        "label": "Button Text",
+        "default":"READ OUR STORY"
+      },
+      
+     {
+  "type": "video",
+  "id": "video-url",
+  "label": "Upload Video URL"
+}
+      
+    ],
+
+
+     "blocks": [
+    {
+      "type": "list_item",
+      "name": "List Item",
+      "settings": [
+       
+           {
+          "type": "text",
+          "id": "item",
+          "label": "Content for list",
+             "default":"Enjoy up to 30% off + free shipping on your subscription."
+        }
+      ]
+    }
+  ],
+     "presets": [
+    {
+      "name": "Arrae Image&Video Section",
+      "category": "Custom"
+    }
+  ]
+  }
+{% endschema %}
+
+<section id="img_vid_section">
+        <div class="container">
+            <div class="row" id="first-section">
+                <div class="col-6" class="image">
+                    <img src="{{ section.settings.image |img_url:'original' }}" width="700" height="550">
+
+                </div>
+                <div class="col-6" id="content1">
+                    <h1>{{ section.settings.first_heading }}</h1>
+                    <p>{{ section.settings.first_desc }}</p>
+                    <div class="cont1-list">
+                        <ul>
+                           {% for block in section.blocks %}
+                            <li>{{ block.settings.item }}</li>
+                             {% endfor %}
+                           </ul>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="row" id="second-section">
+                <div class="col-6" id="content2">
+                    <h1>{{ section.settings.second_heading }}</h1>
+                    <p>{{ section.settings.second_desc }}</p>
+                    <button>{{ section.settings.btn_text }}</button>
+
+                </div>
+                <div class="col-6" class="vid">
+                    <video src="{{ section.settings.video-url}}" width="700" height="350"></video>
+
+                </div>
+            </div>
+        </div>
+    </section>
